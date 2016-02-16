@@ -1,0 +1,26 @@
+{
+  "name": "grid",
+  "version": "1.0.0",
+  "description": "栅格系统",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "stylus -o dist ./src/*.styl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/beenlee/grid.git"
+  },
+  "keywords": [
+    "grid"
+  ],
+  "author": "beenlee",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beenlee/grid/issues"
+  },
+  "homepage": "https://github.com/beenlee/grid"
+}
