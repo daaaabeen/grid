@@ -2,19 +2,16 @@
 // Grid system
 // --------------------------------------------------
 
+$-grid-gutter-width = 10px
+$-grid-columns = 12
+
 @require 'mixins/grid'
 
 .container
-    container-fixed()
+    container-fixed($-grid-gutter-width)
     width: 100%
 
 .row
-    make-row()
+    make-row($-grid-gutter-width)
 
-make-columns()
-
-make-columns('push')
-
-make-columns('pull')
-
-make-columns('offset')
+make-columns($-grid-gutter-width, $-grid-columns)

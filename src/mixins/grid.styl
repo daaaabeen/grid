@@ -1,6 +1,6 @@
 // Grid system
-$grid-gutter-width = 10px
-$grid-columns = 12
+// $grid-gutter-width = 10px
+// $grid-columns = 12
 
 clearfix()
     &:after,
@@ -13,43 +13,57 @@ clearfix()
 percentage($val)
     $val * 100 + '%'
 
-container-fixed($gutter = $grid-gutter-width)
+container-fixed($gutter)
     margin-right: auto
     margin-left: auto
     padding-left:  ($gutter / 2)
     padding-right: ($gutter / 2)
     box-sizing: border-box
 
-// Creates a wrapper for a series of columns
-make-row($gutter = $grid-gutter-width)
+make-row($gutter)
     margin-left: ($gutter / -2)
     margin-right: ($gutter / -2)
+    box-sizing: border-box
     clearfix()
 
-make-column($columns, $gutter = $grid-gutter-width)
+make-column($gutter)
     position: relative
     box-sizing: border-box
     float: left
-    width: percentage(($columns / $grid-columns))
     min-height: 1px
     padding-left:  ($gutter / 2)
     padding-right: ($gutter / 2)
 
-make-column-offset($columns)
+make-column-width($columns, $grid-columns)
+    width: percentage(($columns / $grid-columns))
+
+make-column-offset($columns, $grid-columns)
     margin-left: percentage(($columns / $grid-columns))
 
-make-column-push($columns)
+make-column-push($columns, $grid-columns)
     left: percentage(($columns / $grid-columns))
 
-make-column-pull($columns)
+make-column-pull($columns, $grid-columns)
     right: percentage(($columns / $grid-columns))
 
-make-columns($type = false)
+// 生成栅格
+make-columns($gutter, $grid-columns)
     $fun = 'make-column'
     $class = '.col'
-    if $type
-        $fun = $fun + '-' + $type
-        $class = $class + '-' + $type
+    $selector = $class + '-1'
+    for $n in (2..$grid-columns)
+        $selector = $selector + ',' + $class + '-' + $n
+    {$selector}
+        {$fun}($gutter)
     for $n in (1..$grid-columns)
         {$class}-{$n}
-            {$fun}($n)
+            make-column-width($n, $grid-columns)
+    for $n in (1..$grid-columns)
+        {$class}-offset-{$n}
+            make-column-offset($n, $grid-columns)
+    for $n in (1..$grid-columns)
+        {$class}-push-{$n}
+            make-column-push($n, $grid-columns)
+    for $n in (1..$grid-columns)
+        {$class}-pull-{$n}
+            make-column-pull($n, $grid-columns)
